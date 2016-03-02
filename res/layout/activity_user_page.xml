@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_bg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageView
+        android:id="@+id/imageView_user_bg"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/hint" />
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
+</RelativeLayout>

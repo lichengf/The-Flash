@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <!-- 其它功能框 -->
+
+   <LinearLayout
+        android:id="@+id/lin_user_search_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/lucency_white_bg"
+        android:orientation="vertical" >
+
+
+        <!-- 更换皮肤按钮 -->
+
+        <Button
+            android:id="@+id/skin_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/shape_top"
+            android:text="@string/text_skin_btn"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        
+        <!-- 通用设置 -->
+        <Button 
+            android:id="@+id/settings_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/shape"
+            android:text="@string/text_settings"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
+        
+        <!-- 版本检测 -->
+        <Button 
+            android:id="@+id/copyright_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/shape"
+            android:text="@string/text_copyright"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
+        
+        <!-- 帮        助按钮 -->
+
+        <Button
+            android:id="@+id/helper_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/shape"
+            android:text="@string/text_help"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <!-- 关        于按钮 -->
+
+        <Button
+            android:id="@+id/about_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/shape_bottom"
+            android:text="@string/text_about"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>

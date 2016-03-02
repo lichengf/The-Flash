@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="7"
+    android:orientation="vertical" >
+
+  	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:layout_weight="6"
+    	android:orientation="vertical">
+    	
+    	<ListView
+        android:id="@+id/lv"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:transcriptMode="alwaysScroll" >
+   		 </ListView>
+    </LinearLayout>
+    
+    <RelativeLayout 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentBottom="true" 
+    	android:layout_alignParentLeft="true"
+    	android:background="#000000"
+    	android:layout_weight="1"
+    	android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/speak_btn"
+            android:layout_width="35dip"
+            android:layout_height="47dip"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="1dip"
+            android:layout_marginTop="0dip"
+            android:layout_weight="1"
+            android:background="@drawable/yuyin_btn" 
+            android:onClick="onClick">
+
+        </Button>
+
+        <Button
+            android:id="@+id/choose_btn"
+            android:layout_width="35dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_toRightOf="@+id/speak_btn"
+            android:background="@drawable/caidan_btn" 
+            android:onClick="onClick">
+
+        	</Button>        
+
+        <EditText
+            android:id="@+id/sendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/speak_btn"
+            android:layout_toLeftOf="@+id/send_btn"
+            android:layout_toRightOf="@+id/choose_btn"
+            android:layout_weight="100"
+            android:background="@drawable/shurukuang" >
+        </EditText>
+        <Button 
+        	android:background="@drawable/send_btn" 
+        	android:layout_alignParentRight="true"
+        	android:layout_height="47dip" 
+        	android:layout_width="wrap_content"
+        	android:layout_weight="3" 
+        	android:id="@+id/send_btn"
+        	android:onClick="onClick"
+        	android:layout_alignTop="@+id/sendText">
+        </Button>
+    </RelativeLayout>
+
+</LinearLayout>
