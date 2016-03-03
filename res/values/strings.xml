@@ -86,5 +86,9 @@
         <item>讲个笑话</item>
         <item>合肥工大怎么走</item>
     </string-array>
+    
+    <!-- eggs strings @20160303 begin -->
+    <string name="kiss">亲亲</string>
+    <!-- eggs strings @20160303 end -->
 
 </resources>

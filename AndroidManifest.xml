@@ -69,6 +69,15 @@
             </intent-filter>
         </activity>
         
+        <!-- add eggs by lichengfeng begin @20160303 -->
+        <activity
+            android:name="com.li.util.Eggs"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <!-- add eggs by lichengfeng end @20160303 -->
+        
         <activity
             android:name="com.li.barry.SettingActivity"
             android:label="@string/setting"

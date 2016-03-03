@@ -4,35 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
-import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
-import com.li.adapter.MenuAdapter;
-import com.li.adapter.TextAdapter;
-import com.li.adapter.UserPageAdapter;
-import com.li.util.AppManager;
-import com.li.util.Config;
-import com.li.util.Constants;
-import com.li.util.Snippet;
-import com.li.util.UpdateManager;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.NetworkInfo.State;
-import android.os.Binder;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -50,6 +33,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
+import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
+import com.li.adapter.MenuAdapter;
+import com.li.adapter.TextAdapter;
+import com.li.adapter.UserPageAdapter;
+import com.li.util.AppManager;
+import com.li.util.Config;
+import com.li.util.Constants;
+import com.li.util.Eggs;
+import com.li.util.Snippet;
+import com.li.util.UpdateManager;
 
 public class UserPage extends FatherActivity implements HttpGetDataListener,OnClickListener{
 
@@ -99,6 +94,11 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
     public static final int NETTYPE_CMNET = 0x03;
     
     private Toast mToast;
+    
+    /*add eggs by lichengfeng @20160303 begin */
+	public static final int EGG_ARRAY_NUM = 1;
+	public static int egg_object = 0;
+	/*add eggs by lichengfeng @20160303 begin */
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -328,6 +328,45 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 		}
 
 	}
+	
+	/*add eggs by lichengfeng begin @20160303 */
+	Runnable eggThreadRunnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			Intent intent = new Intent();
+			intent.setClass(UserPage.this, Eggs.class);
+			startActivity(intent);
+		}
+	};
+	
+	public String[] getEggsStrings(int egg_object) {
+		String[] eggsStrings = null;
+		if (egg_object == 0) {
+			eggsStrings = getResources().getStringArray(R.array.egg_kiss);
+		}
+		return eggsStrings;
+	}
+	
+	public boolean matcherEggsStrings(CharSequence s) {
+		String[] eggsStrings;
+		if (s == null) {
+			return false;
+		}
+		for (int i = 0 ; i < EGG_ARRAY_NUM ; i++) {
+			eggsStrings = getEggsStrings(i);
+			for (int j = 0 ; j < eggsStrings.length ; j++) {
+				Pattern p = Pattern.compile(eggsStrings[j]);
+				Matcher m = p.matcher(s);
+				if (m.find()) {
+					egg_object = i;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/*add eggs by lichengfeng end @20160303 */
 
 	@Override
 	public void onClick(View v) {
@@ -347,6 +386,12 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 			} else {
 				sendtext.setText("");
 				String dropk = content_str.replace(" ", "");
+				/*add eggs by lichengfeng begin @20160303 */
+				if (matcherEggsStrings((CharSequence) content_str)) {
+					Thread eggThreads = new Thread(eggThreadRunnable);
+					eggThreads.start();
+				}
+				/*add eggs by lichengfeng end @20160303 */
 				String droph = dropk.replace("\n", "");
 				ListData listData;
 				listData = new ListData(content_str, ListData.SEND, getTime());
