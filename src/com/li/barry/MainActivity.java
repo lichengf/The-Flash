@@ -1,11 +1,12 @@
 package com.li.barry;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.Intent.ShortcutIconResource;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 public class MainActivity extends FatherActivity{
 
@@ -58,13 +59,28 @@ public class MainActivity extends FatherActivity{
 		/* 判断是否是第一次运行，是的话跳转到引导页,使用Handler的postDelayed方法 */
 		if (isFirstIn) {
 			setBgFatherId("bg_help1");
+			/// add by lichengfeng for fix bug #4 add shortcut in launcher begin @20160314{
+			createShortcut();
+			///@20160314}
 			mHandler.sendEmptyMessageDelayed(GO_GUIDE, 0);
 		} else {
 			mHandler.sendEmptyMessageDelayed(GO_USER_FARST_PAGE, DELAY_MILLIS);
 		}
 
 	}
-
+	/*add by lichengfeng for fix bug #4 add shortcut in launcher begin @20160314*/
+	private void createShortcut() {
+		Log.i(TAG, "==createShortcut()");
+		Intent shortCut = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+		shortCut.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.app_name));
+		shortCut.putExtra("duplicate", false);
+		ComponentName comp = new ComponentName("com.li.barry","com.li.barry.MainActivity");
+		shortCut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));
+		ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.launcher);
+		shortCut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
+		this.sendBroadcast(shortCut);
+	}
+	/*add by lichengfeng for fix bug #4 add shortcut in launcher end @20160314*/
 	/**
 	 * 去引导页
 	 */
