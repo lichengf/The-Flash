@@ -83,7 +83,7 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
     private DialogRecognitionListener mRecognitionListener;
     private int mCurrentTheme = Config.DIALOG_THEME;
     
-  //menu菜单模块
+  	//menu菜单模块
   	private PopupWindow popupWindow;
   	private ListView lv_menu;
   	private View view;
@@ -100,6 +100,13 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 	public static int egg_object = 0;
 	/*add eggs by lichengfeng @20160303 begin */
 	
+	///add by lichengfeng for fix BUG #5 @20160315{
+	private View toastRoot;
+	private TextView mToastTextView;
+	private LayoutInflater inflates;
+	private Animation lockScreenShakeAnimation;
+	///@}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,23 +115,41 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 			initPager();
 			initView();
 		}else{
-			/*add by lichengfeng to show toast immediately @20160219 begin*/
-			if (mToast == null) {
-				mToast = Toast.makeText(UserPage.this,R.string.network_unuseable,Toast.LENGTH_SHORT);
-			} else {
-				mToast.setText(R.string.network_unuseable);
-			}
-			mToast.show();
-			/*add by lichengfeng to show toast immediately @20160219 end*/
-			
-			//send_btn.setActivated(false);
+			///add by lichengfeng for fix BUG #5 @20160315{
+			showToast(R.string.network_unuseable);
+			///@}
 			startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
 			
 		}
 	}
 	
+	///add by lichengfeng for fix BUG #5 @20160315{
+	private void showToast(int toastStringID) {
+		/*add by lichengfeng to show toast immediately @20160219 begin*/
+		String toastStr = "          " + getString(toastStringID) + "          ";
+		if (mToast == null) {
+			mToast = Toast.makeText(UserPage.this,toastStr,Toast.LENGTH_SHORT);
+			mToast.setView(toastRoot);
+			mToastTextView.setText(toastStr);
+		} else {
+			mToastTextView.setText(toastStr);
+		}
+		mToast.setGravity(Gravity.BOTTOM,0,10);
+		mToast.show();
+		/*add by lichengfeng to show toast immediately @20160219 begin*/
+		mToastTextView.startAnimation(lockScreenShakeAnimation);
+	}
+	///@}
+	
 	private void initPager(){
 		setContentView(R.layout.activity_user_page);
+		///add by lichengfeng for fix BUG #5 @20160311{
+		inflates = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		toastRoot = inflates.inflate(R.layout.barry_custom_toast, null);
+		mToastTextView = (TextView)toastRoot.findViewById(R.id.TextViewInfo);
+		lockScreenShakeAnimation = AnimationUtils.loadAnimation(this, R.anim.barry_toast_shake);
+		///}
+		
 		//初始化布局空间及监听
 		viewPager_user = (ViewPager)findViewById(R.id.viewPager_user);
 		imageView_user_bg = (ImageView)findViewById(R.id.imageView_user_bg);
@@ -161,14 +186,9 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 
 			if((System.currentTimeMillis()-exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000  
 			{
-				/*add by lichengfeng to show toast immediately @20160219 begin*/
-				if (mToast == null) {
-					mToast = Toast.makeText(UserPage.this,R.string.press_again_to_quit,Toast.LENGTH_SHORT);
-				} else {
-					mToast.setText(R.string.press_again_to_quit);
-				}
-				mToast.show();
-				/*add by lichengfeng to show toast immediately @20160219 end*/
+				///add by lichengfeng for fix BUG #5 @20160315{
+				showToast(R.string.press_again_to_quit);
+				///@}
 				exitTime = System.currentTimeMillis();  
 			}  
 			else  
@@ -229,24 +249,14 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 					manager.checkUpdate();
 					break;
 				case R.id.about_btn:
-					/*add by lichengfeng to show toast immediately @20160219 begin*/
-					if (mToast == null) {
-						mToast = Toast.makeText(UserPage.this,R.string.text_about,Toast.LENGTH_SHORT);
-					} else {
-						mToast.setText(R.string.text_about);
-					}
-					mToast.show();
-					/*add by lichengfeng to show toast immediately @20160219 end*/
+					///add by lichengfeng for fix BUG #5 @20160315{
+					showToast(R.string.text_about);
+					///@}
 					break;
 				case R.id.helper_btn:
-					/*add by lichengfeng to show toast immediately @20160219 begin*/
-					if (mToast == null) {
-						mToast = Toast.makeText(UserPage.this,R.string.text_help,Toast.LENGTH_SHORT);
-					} else {
-						mToast.setText(R.string.text_help);
-					}
-					mToast.show();
-					/*add by lichengfeng to show toast immediately @20160219 end*/
+					///add by lichengfeng for fix BUG #5 @20160315{
+					showToast(R.string.text_help);
+					///@}
 					break;
 
 				}
@@ -375,14 +385,9 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 			getTime();
 			content_str = sendtext.getText().toString();
 			if (content_str == null || content_str.length() <= 0) {
-				/*add by lichengfeng to show toast immediately @20160219 begin*/
-				if (mToast == null) {
-					mToast = Toast.makeText(UserPage.this,R.string.input_cannot_empty,Toast.LENGTH_SHORT);
-				} else {
-					mToast.setText(R.string.input_cannot_empty);
-				}
-				mToast.show();
-				/*add by lichengfeng to show toast immediately @20160219 end*/
+				///add by lichengfeng for fix BUG #5 @20160315{
+				showToast(R.string.input_cannot_empty);
+				///@}
 			} else {
 				sendtext.setText("");
 				String dropk = content_str.replace(" ", "");
