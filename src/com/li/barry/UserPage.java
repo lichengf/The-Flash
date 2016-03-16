@@ -46,6 +46,11 @@ import com.li.util.Eggs;
 import com.li.util.Snippet;
 import com.li.util.UpdateManager;
 
+import android.view.Gravity;
+import android.widget.TextView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 public class UserPage extends FatherActivity implements HttpGetDataListener,OnClickListener{
 
 	private final String TAG = "UserPage";
@@ -105,6 +110,10 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 	private TextView mToastTextView;
 	private LayoutInflater inflates;
 	private Animation lockScreenShakeAnimation;
+	///@}
+	
+	///add by lichengfeng for fix BUG #5 @20160316{
+	private PopupWindow mPopupWindow = null;
 	///@}
 	
 	@Override
@@ -243,7 +252,6 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 					}
 					break;
 				case R.id.copyright_btn:
-//					Toast.makeText(getApplicationContext(), "版本检测", 1000).show();
 					UpdateManager manager = new UpdateManager(UserPage.this);
 					//检查软件更新
 					manager.checkUpdate();
@@ -291,6 +299,77 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 		listData = new ListData(getRandomWelcomeTips(), ListData.RECEIVER,
 				getTime());
 		lists.add(listData);
+		/*add by lichengfeng for fix BUG #5 @20160316 begin */
+		lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					final int position, long id) {
+				final View tempView = view;
+				
+				if (view == null) {
+					return false;
+				}
+				
+				View v = getLayoutInflater().inflate(R.layout.message_popup_menu, null);
+				
+                if (mPopupWindow != null && mPopupWindow.isShowing()) {
+                	mPopupWindow.dismiss();
+                    mPopupWindow = null;
+                }
+
+				TextView popup_copy = (TextView) v.findViewById(R.id.popup_copy);
+				popup_copy.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						
+						TextView temptv = (TextView) tempView.findViewById(R.id.tv);
+						sendtext.setText(temptv.getText());
+						mPopupWindow.dismiss();
+						mPopupWindow = null;
+					}
+				});
+				
+				int[] location = new int[2];
+                location[0] = 0;
+                location[1] = 0;
+                
+				final View messageBlockView = tempView.findViewById(R.id.message_block);
+				messageBlockView.getLocationInWindow(location);
+				
+				v.measure(0, 0);
+				mPopupWindow = new PopupWindow(v, v.getMeasuredWidth(), v.getMeasuredHeight(),false);
+				mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+				mPopupWindow.setOutsideTouchable(true);
+				mPopupWindow.setTouchable(true);
+				mPopupWindow.update();
+				
+				final View contentView = mPopupWindow.getContentView();
+				contentView.measure(0, 0);
+				final int height = contentView.getMeasuredHeight();
+				final int width = contentView.getMeasuredWidth();
+				
+				final int margin = getResources().getDimensionPixelSize(R.dimen.pop_up_window_margin);
+                int y = location[1] - height- margin;
+                int x = location[0] + messageBlockView.getWidth()/2 - width/2;
+                
+                mPopupWindow.showAtLocation(messageBlockView, Gravity.LEFT | Gravity.TOP, x , y);
+                
+				return true;
+			}
+			
+		});
+		/*add by lichengfeng for fix BUG #5 @20160316 end */
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		/*add by lichengfeng for fix BUG #5 @20160316 begin */
+        if (mPopupWindow != null && mPopupWindow.isShowing()) {
+            mPopupWindow.dismiss();
+            mPopupWindow = null;
+        }
+		/*add by lichengfeng for fix BUG #5 @20160316 end */
 	}
 
 	public int getImageId1(String id){

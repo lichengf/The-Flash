@@ -4,4 +4,6 @@
     <color name="gray">#cdc9c9</color>
     <color name="blue">#f0ffff</color>
     <color name="black">#000</color>
+    
+    <color name="holdexpander_divider_color">#565656</color>
 </resources>

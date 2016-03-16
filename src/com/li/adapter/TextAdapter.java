@@ -46,10 +46,10 @@ public class TextAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = LayoutInflater.from(mContext);
 		if(lists.get(position).getFlag() == ListData.RECEIVER){
-			layout = (RelativeLayout) inflater.inflate(R.layout.leftitem, null);
+			layout = (RelativeLayout) inflater.inflate(R.layout.message_list_item_recv, null);
 		}
 		if (lists.get(position).getFlag() == ListData.SEND) {
-			layout = (RelativeLayout) inflater.inflate(R.layout.rightitem, null);
+			layout = (RelativeLayout) inflater.inflate(R.layout.message_list_item_send, null);
 		}
 		TextView tv = (TextView) layout.findViewById(R.id.tv);
 		TextView time = (TextView) layout.findViewById(R.id.time);

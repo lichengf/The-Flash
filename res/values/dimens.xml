@@ -3,5 +3,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+    
+    <!-- add by lichengfeng for fix BUG #5 @20160316 begin -->
+    <dimen name="holdexpander_item_height">33dp</dimen>
+    <dimen name="holdexpander_item_min_width">52dp</dimen>
+    <dimen name="holdexpander_item_left_padding">12dp</dimen>
+    <dimen name="holdexpander_item_right_padding">12dp</dimen>
+    <dimen name="holdexpander_item_top_padding">10dp</dimen>
+    <dimen name="holdexpander_item_bottom_padding">10dp</dimen>
+    <dimen name="holdexpander_item_divider_height">1px</dimen>
+    <dimen name="message_popup_menu_text_size">14dp</dimen>
+    <dimen name="pop_up_window_margin">6dp</dimen>
+    <!-- add by lichengfeng for fix BUG #5 @20160316 end -->
 </resources>
