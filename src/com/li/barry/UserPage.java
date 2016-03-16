@@ -112,7 +112,7 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 	private Animation lockScreenShakeAnimation;
 	///@}
 	
-	///add by lichengfeng for fix BUG #5 @20160316{
+	///add by lichengfeng for fix BUG #6 @20160316{
 	private PopupWindow mPopupWindow = null;
 	///@}
 	
@@ -299,7 +299,7 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 		listData = new ListData(getRandomWelcomeTips(), ListData.RECEIVER,
 				getTime());
 		lists.add(listData);
-		/*add by lichengfeng for fix BUG #5 @20160316 begin */
+		/*add by lichengfeng for fix BUG #6 @20160316 begin */
 		lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -358,7 +358,7 @@ public class UserPage extends FatherActivity implements HttpGetDataListener,OnCl
 			}
 			
 		});
-		/*add by lichengfeng for fix BUG #5 @20160316 end */
+		/*add by lichengfeng for fix BUG #6 @20160316 end */
 	}
 	
 	@Override
