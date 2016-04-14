@@ -93,6 +93,17 @@
             <intent-filter >
             </intent-filter>
         </activity>
+        <!--add by lichengfeng start barry from dialer use *#*#7758521#*#* begin @20160414-->
+        <receiver 
+            android:name="com.li.util.BarryBroadcastReceiver"
+            android:exported="true">
+           <intent-filter>
+        		<action android:name="android.provider.Telephony.SECRET_CODE"/>
+        		<data android:host="7758521"
+        		    android:scheme="android_secret_code"/>        
+            </intent-filter>
+        </receiver>        
+        <!--add by lichengfeng start barry from dialer use *#*#7758521#*#* begin @20160414-->	
     </application>
 
 </manifest>
